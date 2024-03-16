@@ -30,6 +30,7 @@ pub struct CallbackResponseData {
     pub merchant_secret_key: String,
     pub amount_from_user_in_usdt: Decimal,
     pub amount_from_user_for_merchant: Decimal,
+    pub currency_for_users_in_currency: String,
     #[serde(with = "ts_milliseconds")]
     pub timestamp_created_order: DateTime<Utc>,
     #[serde(with = "ts_milliseconds")]
