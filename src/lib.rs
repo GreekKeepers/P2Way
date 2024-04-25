@@ -6,7 +6,7 @@ pub mod errors;
 
 use reqwest::{Client, Method};
 
-pub static SANDBOX_URL: &str = "https://dev.p2way.fyi";
+pub static SANDBOX_URL: &str = "https://stage.p2way.fyi";
 pub static PROD_URL: &str = "https://p2way.fyi";
 
 #[derive(Clone)]
