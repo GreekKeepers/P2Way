@@ -40,6 +40,33 @@ impl P2Way {
             .post(url)
             .body(self.baked_ott_request.clone())
             .header(reqwest::header::CONTENT_TYPE, "application/json")
+            .header(reqwest::header::USER_AGENT, "backend")
+            .send()
+            .await
+            .map_err(errors::Error::RequestError)?
+            .text()
+            .await
+            .map_err(errors::Error::RequestError)?;
+
+        Ok(serde_json::from_str(&res).map_err(|e| errors::Error::SerdeError(e, res))?)
+    }
+
+    pub async fn get_widget_settings(
+        &self,
+        ott: String,
+    ) -> Result<MerchantSettings, errors::Error> {
+        let url = format!("{}{}", self.base_url, "/widget/getSettings");
+        let res = self
+            .client
+            .get(url)
+            .body(
+                serde_json::to_string(&Auth {
+                    api_key: self.api_key.clone(),
+                    token: ott,
+                })
+                .unwrap(),
+            )
+            .header(reqwest::header::CONTENT_TYPE, "application/json")
             .send()
             .await
             .map_err(errors::Error::RequestError)?

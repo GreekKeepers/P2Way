@@ -45,3 +45,29 @@ pub struct CallbackResponseData {
     #[serde(with = "ts_milliseconds")]
     pub timestamp_completed_order: DateTime<Utc>,
 }
+
+#[derive(Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct SettingAmount {
+    min: Decimal,
+    max: Decimal,
+}
+
+#[derive(Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct WidgetSettings {
+    amount: SettingAmount,
+}
+
+#[derive(Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct MerchantSettings {
+    merchant: WidgetSettings,
+}
+
+#[derive(Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct Auth {
+    pub api_key: String,
+    pub token: String,
+}
